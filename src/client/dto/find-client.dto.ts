@@ -1,6 +1,15 @@
+import { IsOptional, IsString } from 'class-validator';
+
 export class FindClientDto {
-  name: string;
-  email: string;
-  phone: string;
-  coordXY: string;
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  phone?: string;
 }

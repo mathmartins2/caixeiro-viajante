@@ -28,7 +28,8 @@ export class RouteCalculatorService {
   }
 
   private parseCoordinates(coordStr: string): { x: number; y: number } | null {
-    const match = coordStr.match(/\((-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)\)/);
+    const regex = /\((-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)\)/;
+    const match = regex.exec(coordStr);
     if (!match) return null;
 
     const x = parseFloat(match[1]);

@@ -3,7 +3,7 @@ import { Client } from './entity/clients';
 import { CreateClientDto } from './dto/create-client.dto';
 import { FindClientDto } from './dto/find-client.dto';
 import { ClientRepository } from './repository/client.repository';
-import { RouteCalculatorService } from './route-calculator.service';
+import { RouteCalculatorService } from '../route-calculator/route-calculator.service';
 import { ClientsNotFound } from './errors/clients-not-found.error';
 
 /**

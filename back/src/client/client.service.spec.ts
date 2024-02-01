@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClientService } from './client.service';
-import { RouteCalculatorService } from './route-calculator.service';
+import { RouteCalculatorService } from '../route-calculator/route-calculator.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { FindClientDto } from './dto/find-client.dto';
 import { ClientRepository } from './repository/client.repository';

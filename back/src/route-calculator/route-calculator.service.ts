@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Client, ClientWithCoordinates } from './entity/clients';
+import { Client, ClientWithCoordinates } from '../client/entity/clients';
 
 @Injectable()
 export class RouteCalculatorService {

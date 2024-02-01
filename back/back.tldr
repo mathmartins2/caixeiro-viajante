@@ -66,9 +66,9 @@
     {
       "id": "pointer:pointer",
       "typeName": "pointer",
-      "x": 988.5057918000305,
-      "y": 135.70925854481033,
-      "lastActivityTimestamp": 1706749834196,
+      "x": 1185.1273079796813,
+      "y": 883.9157957721969,
+      "lastActivityTimestamp": 1706798331772,
       "meta": {}
     },
     {
@@ -79,9 +79,9 @@
       "typeName": "page"
     },
     {
-      "x": 255.20705685108965,
-      "y": -13.776626324112272,
-      "z": 0.6561000000000001,
+      "x": 817.1026226618087,
+      "y": -294.91568666581963,
+      "z": 0.5398980324171164,
       "meta": {},
       "id": "camera:page:page",
       "typeName": "camera"
@@ -245,8 +245,8 @@
       "typeName": "shape"
     },
     {
-      "x": 98,
-      "y": 189,
+      "x": 64.66037118265774,
+      "y": 192.70440320192694,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
@@ -255,8 +255,8 @@
       "props": {
         "color": "black",
         "size": "m",
-        "w": 104,
-        "text": "clients",
+        "w": 176.2358624375745,
+        "text": "customer",
         "font": "draw",
         "align": "middle",
         "autoSize": false,
@@ -836,7 +836,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:QDlcIdww4t8ZGTLJWdZP2",
       "type": "geo",
       "props": {
         "w": 213.10843373493975,
@@ -856,6 +855,7 @@
       },
       "parentId": "page:page",
       "index": "aJ",
+      "id": "shape:QDlcIdww4t8ZGTLJWdZP2",
       "typeName": "shape"
     },
     {
@@ -865,7 +865,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:_v3Du5zyMkINrwX4guvsd",
       "type": "text",
       "props": {
         "color": "black",
@@ -879,22 +878,22 @@
       },
       "parentId": "page:page",
       "index": "aK",
+      "id": "shape:_v3Du5zyMkINrwX4guvsd",
       "typeName": "shape"
     },
     {
-      "x": 840.8313253012047,
+      "x": 803.7872932819357,
       "y": 929.7013365963855,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:KFyz61m5MhRetxcqeTPEJ",
       "type": "text",
       "props": {
         "color": "black",
         "size": "m",
-        "w": 152,
-        "text": "clientIds[]",
+        "w": 227.1194035663473,
+        "text": "customerIds[]",
         "font": "draw",
         "align": "middle",
         "autoSize": false,
@@ -902,6 +901,7 @@
       },
       "parentId": "page:page",
       "index": "aL",
+      "id": "shape:KFyz61m5MhRetxcqeTPEJ",
       "typeName": "shape"
     },
     {
@@ -911,7 +911,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:Cj1StkG64_2LRrLltSR-m",
       "type": "geo",
       "props": {
         "w": 172,
@@ -931,6 +930,7 @@
       },
       "parentId": "page:page",
       "index": "aM",
+      "id": "shape:Cj1StkG64_2LRrLltSR-m",
       "typeName": "shape"
     },
     {
@@ -940,7 +940,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:ruFDHsxfONsdAbeI4ASxi",
       "type": "text",
       "props": {
         "color": "black",
@@ -954,22 +953,22 @@
       },
       "parentId": "page:page",
       "index": "aN",
+      "id": "shape:ruFDHsxfONsdAbeI4ASxi",
       "typeName": "shape"
     },
     {
-      "x": 1017.25,
+      "x": 1005.65625,
       "y": 564,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:3_OJDMPLs5g83Co02zVzx",
       "type": "text",
       "props": {
         "color": "black",
         "size": "m",
-        "w": 90.5,
-        "text": "CLIENT",
+        "w": 113.6875,
+        "text": "customer",
         "font": "draw",
         "align": "middle",
         "autoSize": true,
@@ -977,6 +976,7 @@
       },
       "parentId": "page:page",
       "index": "aO",
+      "id": "shape:3_OJDMPLs5g83Co02zVzx",
       "typeName": "shape"
     },
     {
@@ -986,7 +986,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:P6I3Q06ae5SuWQLZD8Zlg",
       "type": "arrow",
       "parentId": "page:page",
       "index": "aBV",
@@ -1022,6 +1021,7 @@
         "text": "",
         "font": "draw"
       },
+      "id": "shape:P6I3Q06ae5SuWQLZD8Zlg",
       "typeName": "shape"
     }
   ]

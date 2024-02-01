@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ClientService } from './client.service';
+import { CustomerService } from './customer.service';
 import { RouteCalculatorService } from '../route-calculator/route-calculator.service';
-import { CreateClientDto } from './dto/create-client.dto';
-import { FindClientDto } from './dto/find-client.dto';
-import { ClientRepository } from './repository/client.repository';
-import { Client } from './entity/clients';
-import { ClientsNotFound } from './errors/clients-not-found.error';
+import { CreateCustomerDto } from './dto/create-customer.dto';
+import { FindCustomerDto } from './dto/find-customer.dto';
+import { ClientRepository } from './repository/customer.repository';
+import { Customer } from './entity/customer';
+import { CustomersNotFound } from './errors/customers-not-found.error';
 
 describe('ClientService', () => {
-  let clientService: ClientService;
-  let clientRepository: ClientRepository;
+  let customerService: CustomerService;
+  let customerRepository: ClientRepository;
   let routeCalculatorService: RouteCalculatorService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ClientService,
+        CustomerService,
         {
           provide: ClientRepository,
           useValue: {
@@ -33,35 +33,37 @@ describe('ClientService', () => {
       ],
     }).compile();
 
-    clientService = module.get<ClientService>(ClientService);
-    clientRepository = module.get<ClientRepository>(ClientRepository);
+    customerService = module.get<CustomerService>(CustomerService);
+    customerRepository = module.get<ClientRepository>(ClientRepository);
     routeCalculatorService = module.get<RouteCalculatorService>(
       RouteCalculatorService,
     );
   });
 
   describe('create', () => {
-    it('should create a new client', async () => {
-      const createClientDto: CreateClientDto = {
+    it('should create a new customer', async () => {
+      const createCustomerDto: CreateCustomerDto = {
         name: 'John Doe',
         coordXY: '123,456',
         email: 'john@example.com',
         phone: '1234567890',
       };
 
-      await clientService.create(createClientDto);
+      await customerService.create(createCustomerDto);
 
-      expect(clientRepository.create).toHaveBeenCalledWith(expect.any(Client));
+      expect(customerRepository.create).toHaveBeenCalledWith(
+        expect.any(Customer),
+      );
     });
   });
 
   describe('findAll', () => {
     it('should find all clients', async () => {
-      const findClientDto: FindClientDto = {
+      const findClientDto: FindCustomerDto = {
         name: 'John Doe',
       };
 
-      const clients: Client[] = [
+      const clients: Customer[] = [
         {
           name: 'John Doe',
           coordXY: '123,456',
@@ -75,21 +77,21 @@ describe('ClientService', () => {
           phone: '1234567890',
         },
       ];
-      jest.spyOn(clientRepository, 'findAll').mockResolvedValue(clients);
+      jest.spyOn(customerRepository, 'findAll').mockResolvedValue(clients);
 
-      const result = await clientService.findAll(findClientDto);
+      const result = await customerService.findAll(findClientDto);
 
       expect(result).toEqual(clients);
     });
   });
 
   describe('calculateRoute', () => {
-    it('should calculate route for given client IDs', async () => {
+    it('should calculate route for given customer IDs', async () => {
       const clientIds: string[] = [
         '5f4c7b6d-3e3f-4d3b-bd8e-1392e8b1e1c2',
         '5f4c7b6d-3e3f-4d3b-bd8e-1392e8b1e1c3',
       ];
-      const clients: Client[] = [
+      const clients: Customer[] = [
         {
           name: 'John Doe',
           coordXY: '(123,456)',
@@ -104,13 +106,13 @@ describe('ClientService', () => {
         },
       ];
       jest
-        .spyOn(clientRepository, 'findByListOfIds')
+        .spyOn(customerRepository, 'findByListOfIds')
         .mockResolvedValue(clients);
       jest
         .spyOn(routeCalculatorService, 'calculateRoute')
         .mockReturnValue(clients);
 
-      const result = await clientService.calculateRoute(clientIds);
+      const result = await customerService.calculateRoute(clientIds);
 
       expect(result).toEqual(clients);
     });
@@ -120,10 +122,10 @@ describe('ClientService', () => {
         '5f4c7b6d-3e3f-4d3b-bd8e-1392e8b1e1c2',
         '5f4c7b6d-3e3f-4d3b-bd8e-1392e8b1e1c3',
       ];
-      jest.spyOn(clientRepository, 'findByListOfIds').mockResolvedValue([]);
+      jest.spyOn(customerRepository, 'findByListOfIds').mockResolvedValue([]);
 
-      await expect(clientService.calculateRoute(clientIds)).rejects.toThrow(
-        ClientsNotFound,
+      await expect(customerService.calculateRoute(clientIds)).rejects.toThrow(
+        CustomersNotFound,
       );
     });
   });
@@ -133,10 +135,10 @@ describe('ClientService', () => {
       '5f4c7b6d-3e3f-4d3b-bd8e-1392e8b1e1c2',
       '5f4c7b6d-3e3f-4d3b-bd8e-1392e8b1e1c3',
     ];
-    jest.spyOn(clientRepository, 'findByListOfIds').mockResolvedValue([]);
+    jest.spyOn(customerRepository, 'findByListOfIds').mockResolvedValue([]);
 
-    await expect(clientService.calculateRoute(clientIds)).rejects.toThrow(
-      ClientsNotFound,
+    await expect(customerService.calculateRoute(clientIds)).rejects.toThrow(
+      CustomersNotFound,
     );
   });
 });

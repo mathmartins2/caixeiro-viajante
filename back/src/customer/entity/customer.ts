@@ -1,4 +1,4 @@
-export class Client {
+export class Customer {
   constructor(
     public name: string,
     public coordXY: string,
@@ -10,7 +10,7 @@ export class Client {
   ) {}
 }
 
-export type ClientWithCoordinates = {
-  client: Client;
+export type CustomerWithCoordinates = {
+  customer: Customer;
   coordinates: { x: number; y: number };
 };

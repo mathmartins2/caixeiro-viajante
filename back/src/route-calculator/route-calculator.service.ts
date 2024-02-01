@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Client, ClientWithCoordinates } from '../client/entity/clients';
+import { Customer, CustomerWithCoordinates } from '../customer/entity/customer';
 
 @Injectable()
 export class RouteCalculatorService {
   private findNearest(
-    current: ClientWithCoordinates,
-    clients: ClientWithCoordinates[],
-  ): ClientWithCoordinates {
+    current: CustomerWithCoordinates,
+    clients: CustomerWithCoordinates[],
+  ): CustomerWithCoordinates {
     let nearest = clients[0];
     let shortestDistance = this.calculateDistance(
       current.coordinates,
@@ -44,28 +44,27 @@ export class RouteCalculatorService {
     return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
   }
 
-  calculateRoute(clients: Client[]): Client[] {
-    let clientsWithCoordinates: ClientWithCoordinates[] = clients.map(
-      (client) => ({
-        client,
-        coordinates: this.parseCoordinates(client.coordXY),
+  calculateRoute(clients: Customer[]): Customer[] {
+    let customerWithCoordinates: CustomerWithCoordinates[] = clients.map(
+      (customer) => ({
+        customer,
+        coordinates: this.parseCoordinates(customer.coordXY),
       }),
     );
 
-    if (clientsWithCoordinates.length === 0) return [];
+    if (customerWithCoordinates.length === 0) return [];
 
-    let current = clientsWithCoordinates.shift();
-    const route: ClientWithCoordinates[] = [current];
+    let current = customerWithCoordinates.shift();
+    const route: CustomerWithCoordinates[] = [current];
 
-    while (clientsWithCoordinates.length > 0) {
-      const nearest = this.findNearest(current, clientsWithCoordinates);
-      console.log(nearest);
-      clientsWithCoordinates = clientsWithCoordinates.filter(
+    while (customerWithCoordinates.length > 0) {
+      const nearest = this.findNearest(current, customerWithCoordinates);
+      customerWithCoordinates = customerWithCoordinates.filter(
         (cwc) => cwc !== nearest,
       );
       route.push(nearest);
       current = nearest;
     }
-    return route.map((cwc) => cwc.client);
+    return route.map((cwc) => cwc.customer);
   }
 }

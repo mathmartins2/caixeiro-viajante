@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ClientModule } from './client/client.module';
+import { CustomerModule } from './customer/customer.module';
 import { EnvModule } from './env/env-validator.module';
 import { ConfigModule } from '@nestjs/config';
 
@@ -11,7 +11,7 @@ import { ConfigModule } from '@nestjs/config';
       cache: true,
     }),
     EnvModule,
-    ClientModule,
+    CustomerModule,
   ],
 })
 export class AppModule {}

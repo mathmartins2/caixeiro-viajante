@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useQuery } from '@tanstack/react-query';
 import { Button, Flex, Input, Spinner, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure, Stack, Center } from "@chakra-ui/react";
-import { AddIcon } from '@chakra-ui/icons';
-import Header from "./components/Header";
-import ModalComponent from "./components/Modal";
+import { AddIcon, SearchIcon } from '@chakra-ui/icons';
+import Header from "./components/Header/Header";
+import NewCostumerModal from "./components/Customer/NewCostumerModal/Modal";
 import { CustomerRepository } from "./repository/customer-repository";
 import { useSearchParams } from "react-router-dom";
+import CustomerRouteModal from "./components/Customer/CustomerRouteModal/Modal";
 
 export interface Customer {
   id: string;
@@ -29,6 +30,7 @@ function App() {
       phone: phone ?? undefined,
     }),
   });
+  const { isOpen: newCostumerIsOpen, onOpen: newCostumerOnOpen, onClose: newCostumerOnClone } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit, reset } = useForm<Partial<Customer>>({
     values: {
@@ -67,8 +69,11 @@ function App() {
           <Button margin={3} colorScheme='blue' onClick={handleSubmit(onFilterSubmit)}>Apply Filters</Button>
           <Button colorScheme='gray' onClick={onClearFilters}>Clear Filters</Button>
         </Center>
-        <Button leftIcon={<AddIcon />} colorScheme='teal' size='lg' mb="4" onClick={onOpen}>
+        <Button leftIcon={<AddIcon />} colorScheme='teal' size='lg' mb="4" onClick={newCostumerOnOpen}>
           Add Customer
+        </Button>
+        <Button leftIcon={<SearchIcon />} colorScheme='teal' size='lg' mb="4" onClick={onOpen}>
+          Customers routes
         </Button>
         {isLoading && <Spinner size="xl" />}
         <TableContainer>
@@ -97,7 +102,8 @@ function App() {
           </Table>
         </TableContainer>
       </Flex>
-      <ModalComponent isOpen={isOpen} onClose={onClose} />
+      <NewCostumerModal isOpen={newCostumerIsOpen} onClose={newCostumerOnClone} />
+      <CustomerRouteModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

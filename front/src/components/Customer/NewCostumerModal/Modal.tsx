@@ -4,26 +4,18 @@ import { useForm } from "react-hook-form"
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CustomerRepository } from "../repository/customer-repository";
+import { CustomerRepository } from "../../../repository/customer-repository";
+import { customerSchema } from "./schemas/customer-schema";
+import { ModalProps } from "../interfaces";
 
-interface ModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-const customerSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  phone: z.string().min(10, { message: "Phone number must be at least 10 digits" }),
-  coordXY: z.string().regex(/^\(\d+,\d+\)$/, { message: "Coordinates must be in the format (x,y)" }),
-});
 
 type Customer = z.infer<typeof customerSchema>;
 
-function ModalComponent({ isOpen, onClose }: Readonly<ModalProps>) {
+function NewCostumerModal({ isOpen, onClose }: Readonly<ModalProps>) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Customer>({
     resolver: zodResolver(customerSchema),
@@ -42,7 +34,8 @@ function ModalComponent({ isOpen, onClose }: Readonly<ModalProps>) {
         isClosable: true,
       })
       onClose();
-      queryClient.invalidateQueries({ queryKey: ['customers'] });
+      queryClient.invalidateQueries()
+      reset();
     },
     onError: (error) => {
       toast({
@@ -63,6 +56,9 @@ function ModalComponent({ isOpen, onClose }: Readonly<ModalProps>) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      isCentered
+      motionPreset='slideInBottom'
+      size={'xl'}
     >
       <ModalOverlay />
       <ModalContent>
@@ -131,4 +127,4 @@ function ModalComponent({ isOpen, onClose }: Readonly<ModalProps>) {
   )
 }
 
-export default ModalComponent;
+export default NewCostumerModal;

@@ -14,25 +14,24 @@ export class ClientRepository implements CustomerRepositoryInterface {
     );
   }
 
-  async findAll(findCustomerDto: FindCustomerDto): Promise<Customer[]> {
-    const { name, email, phone } = findCustomerDto;
+  async findAll(findCustomerDto?: FindCustomerDto): Promise<Customer[]> {
     const where = [];
     const values = [];
     let index = 1;
 
-    if (name) {
+    if (findCustomerDto?.name) {
       where.push(`name = $${index++}`);
-      values.push(name);
+      values.push(findCustomerDto?.name);
     }
 
-    if (email) {
+    if (findCustomerDto?.email) {
       where.push(`email = $${index++}`);
-      values.push(email);
+      values.push(findCustomerDto?.email);
     }
 
-    if (phone) {
+    if (findCustomerDto?.phone) {
       where.push(`phone = $${index++}`);
-      values.push(phone);
+      values.push(findCustomerDto?.phone);
     }
 
     const whereClause = where.length > 0 ? `WHERE ${where.join(' AND ')}` : '';

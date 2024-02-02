@@ -4,7 +4,6 @@ import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
 import { ClientRepository } from './repository/customer.repository';
 import { RouteCalculatorService } from '../route-calculator/route-calculator.service';
-import { CustomersNotFound } from './errors/customers-not-found.error';
 
 /**
  * Service responsible for managing clients.
@@ -40,14 +39,12 @@ export class CustomerService {
   }
 
   /**
-   * Calculates the route for a list of clients.
-   * @param clientIds - The IDs of the clients to calculate the route for.
-   * @returns A list of clients with the calculated route.
-   * @throws ClientsNotFound if no clients are found with the provided IDs.
+   * Calculates the route for the customers.
+   * @returns A promise that resolves to an array of Customer objects.
+   * @throws CustomersNotFound if no customers are found.
    */
-  async calculateRoute(clientIds: string[]): Promise<Customer[]> {
-    const customers = await this.customerRepository.findByListOfIds(clientIds);
-    if (!customers.length) throw new CustomersNotFound();
+  async calculateRoute(): Promise<Customer[]> {
+    const customers = await this.customerRepository.findAll();
     return this.routeCalculatorService.calculateRoute(customers);
   }
 }

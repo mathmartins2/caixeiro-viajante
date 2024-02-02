@@ -17,7 +17,7 @@ function Header() {
           boxSize="50px"
           marginRight="12px"
           alt="Logo"
-          borderRadius='full'
+          borderRadius="full"
         />
         <Text fontSize="lg" fontWeight="bold">
           Customer Management

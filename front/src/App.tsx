@@ -1,20 +1,29 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
-import { Button, Flex, Input, Spinner, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure, Stack, Center } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  Spinner,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
+  Stack,
+  Center,
+} from '@chakra-ui/react';
 import { AddIcon, SearchIcon } from '@chakra-ui/icons';
-import Header from "./components/Header/Header";
-import NewCostumerModal from "./components/Customer/NewCostumerModal/Modal";
-import { CustomerRepository } from "./repository/customer-repository";
-import { useSearchParams } from "react-router-dom";
-import CustomerRouteModal from "./components/Customer/CustomerRouteModal/Modal";
-
-export interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  coordXY: string;
-}
+import Header from './components/Header/Header';
+import NewCostumerModal from './components/Customer/NewCostumerModal/Modal';
+import { CustomerRepository } from './repository/customer-repository';
+import { useSearchParams } from 'react-router-dom';
+import CustomerRouteModal from './components/Customer/CustomerRouteModal/Modal';
+import { Customer } from './entity/customer.entity';
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,13 +33,18 @@ function App() {
 
   const { data, isLoading, error } = useQuery<Customer[]>({
     queryKey: ['customers', name, email, phone],
-    queryFn: () => CustomerRepository().getCustomers({
-      name: name ?? undefined,
-      email: email ?? undefined,
-      phone: phone ?? undefined,
-    }),
+    queryFn: () =>
+      CustomerRepository().getCustomers({
+        name: name ?? undefined,
+        email: email ?? undefined,
+        phone: phone ?? undefined,
+      }),
   });
-  const { isOpen: newCostumerIsOpen, onOpen: newCostumerOnOpen, onClose: newCostumerOnClone } = useDisclosure();
+  const {
+    isOpen: newCostumerIsOpen,
+    onOpen: newCostumerOnOpen,
+    onClose: newCostumerOnClone,
+  } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit, reset } = useForm<Partial<Customer>>({
     values: {
@@ -52,7 +66,7 @@ function App() {
   const onClearFilters = () => {
     setSearchParams('');
     reset();
-  }
+  };
 
   if (error) return <div>Error: {error.message}</div>;
 
@@ -60,24 +74,44 @@ function App() {
     <>
       <Header />
       <Flex direction="column" align="center" width="100%" pt="4">
-        <Stack direction={{ base: "column", md: "row" }} spacing="4" mb="4">
+        <Stack direction={{ base: 'column', md: 'row' }} spacing="4" mb="4">
           <Input placeholder="Filter by Name" {...register('name')} />
           <Input placeholder="Filter by Email" {...register('email')} />
           <Input placeholder="Filter by Phone" {...register('phone')} />
         </Stack>
         <Center padding={3}>
-          <Button margin={3} colorScheme='blue' onClick={handleSubmit(onFilterSubmit)}>Apply Filters</Button>
-          <Button colorScheme='gray' onClick={onClearFilters}>Clear Filters</Button>
+          <Button
+            margin={3}
+            colorScheme="blue"
+            onClick={handleSubmit(onFilterSubmit)}
+          >
+            Apply Filters
+          </Button>
+          <Button colorScheme="gray" onClick={onClearFilters}>
+            Clear Filters
+          </Button>
         </Center>
-        <Button leftIcon={<AddIcon />} colorScheme='teal' size='lg' mb="4" onClick={newCostumerOnOpen}>
+        <Button
+          leftIcon={<AddIcon />}
+          colorScheme="teal"
+          size="lg"
+          mb="4"
+          onClick={newCostumerOnOpen}
+        >
           Add Customer
         </Button>
-        <Button leftIcon={<SearchIcon />} colorScheme='teal' size='lg' mb="4" onClick={onOpen}>
+        <Button
+          leftIcon={<SearchIcon />}
+          colorScheme="teal"
+          size="lg"
+          mb="4"
+          onClick={onOpen}
+        >
           Customers routes
         </Button>
         {isLoading && <Spinner size="xl" />}
         <TableContainer>
-          <Table variant='simple'>
+          <Table variant="simple">
             <TableCaption placement="top">Customers List</TableCaption>
             <Thead>
               <Tr>
@@ -102,7 +136,10 @@ function App() {
           </Table>
         </TableContainer>
       </Flex>
-      <NewCostumerModal isOpen={newCostumerIsOpen} onClose={newCostumerOnClone} />
+      <NewCostumerModal
+        isOpen={newCostumerIsOpen}
+        onClose={newCostumerOnClone}
+      />
       <CustomerRouteModal isOpen={isOpen} onClose={onClose} />
     </>
   );

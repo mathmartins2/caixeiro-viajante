@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Customer } from '../App';
 import { validatedEnv } from '../main';
+import { Customer } from '../entity/customer.entity';
 
 export function CustomerRepository() {
   const getCustomers = async (filters?: Partial<Customer>) => {
@@ -19,7 +19,7 @@ export function CustomerRepository() {
   const customerRoutes = async () => {
     return (
       await axios.post<Customer[]>(
-        validatedEnv.VITE_API_URL + '/calculate-route'
+        validatedEnv.VITE_API_URL + '/calculate-route',
       )
     ).data;
   };

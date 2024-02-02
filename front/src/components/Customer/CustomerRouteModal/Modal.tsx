@@ -1,13 +1,32 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, ModalFooter, Button, Spinner, Center } from "@chakra-ui/react";
-import { ModalProps } from "../interfaces";
-import { CustomerRepository } from "../../../repository/customer-repository";
-import { Customer } from "../../../App";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  TableContainer,
+  Table,
+  TableCaption,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  ModalFooter,
+  Button,
+  Spinner,
+  Center,
+} from '@chakra-ui/react';
+import { ModalProps } from '../interfaces';
+import { CustomerRepository } from '../../../repository/customer-repository';
 import { useQuery } from '@tanstack/react-query';
+import { Customer } from '../../../entity/customer.entity';
 
 function CustomerRouteModal({ isOpen, onClose }: Readonly<ModalProps>) {
   const { data, isLoading, error } = useQuery<Customer[]>({
     queryKey: ['customers-route'],
-    queryFn: () => CustomerRepository().customerRoutes()
+    queryFn: () => CustomerRepository().customerRoutes(),
   });
 
   if (error) return <div>Error: {error.message}</div>;
@@ -17,7 +36,7 @@ function CustomerRouteModal({ isOpen, onClose }: Readonly<ModalProps>) {
       isOpen={isOpen}
       onClose={onClose}
       isCentered
-      motionPreset='slideInBottom'
+      motionPreset="slideInBottom"
       size={'xl'}
     >
       <ModalOverlay />
@@ -26,7 +45,7 @@ function CustomerRouteModal({ isOpen, onClose }: Readonly<ModalProps>) {
         <ModalCloseButton />
         <ModalBody pb={6}>
           <TableContainer>
-            <Table variant='simple'>
+            <Table variant="simple">
               <TableCaption placement="top">Customers best route</TableCaption>
               <Thead>
                 <Tr>
@@ -48,9 +67,7 @@ function CustomerRouteModal({ isOpen, onClose }: Readonly<ModalProps>) {
                   </Tr>
                 ))}
               </Tbody>
-              <Center>
-                {isLoading && <Spinner size="xl" />}
-              </Center>
+              <Center>{isLoading && <Spinner size="xl" />}</Center>
             </Table>
           </TableContainer>
         </ModalBody>
@@ -60,7 +77,7 @@ function CustomerRouteModal({ isOpen, onClose }: Readonly<ModalProps>) {
         </ModalFooter>
       </ModalContent>
     </Modal>
-  )
+  );
 }
 
 export default CustomerRouteModal;

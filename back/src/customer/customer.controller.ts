@@ -16,7 +16,6 @@ export class CustomersController {
 
   @Get()
   findAll(@Query() findClientDto: FindCustomerDto) {
-    console.log(findClientDto);
     return this.customerService.findAll(findClientDto);
   }
 

@@ -4,10 +4,12 @@ import 'dotenv/config';
 
 const processEnv = {
   DATABASE_URL: process.env.DATABASE_URL,
+  PORT: process.env.PORT,
 };
 
 const envSchema = z.object({
   DATABASE_URL: z.string(),
+  PORT: z.string(),
 });
 
 @Injectable()

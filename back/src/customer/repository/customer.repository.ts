@@ -18,26 +18,27 @@ export class ClientRepository implements CustomerRepositoryInterface {
     const { name, email, phone } = findCustomerDto;
     const where = [];
     const values = [];
+    let index = 1;
 
     if (name) {
-      where.push(`name = $${values.length++}`);
+      where.push(`name = $${index++}`);
       values.push(name);
     }
 
     if (email) {
-      where.push(`email = $${values.length++}`);
+      where.push(`email = $${index++}`);
       values.push(email);
     }
 
     if (phone) {
-      where.push(`phone = $${values.length++}`);
+      where.push(`phone = $${index++}`);
       values.push(phone);
     }
 
     const whereClause = where.length > 0 ? `WHERE ${where.join(' AND ')}` : '';
     return (
       await this.pg.query<Customer>(
-        `SELECT * FROM customers ${whereClause}`,
+        `SELECT *, coordxy as "coordXY" FROM customers ${whereClause}`,
         values,
       )
     ).rows;
